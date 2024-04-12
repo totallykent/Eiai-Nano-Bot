@@ -25,18 +25,15 @@ def bot_start(token):
             return
         
         if client.user in message.mentions:
-            user_message = removeMention(str(message.content))
-            username = str(message.author)
-            # channel = str(message.channel)
-            
+            user_message = removeMention(str(message.content)) 
             geminiReply = GeminiConvo.main(user_message)
             await message.reply(geminiReply)
 
     client.run(token)
 
 def removeMention(userMessage):
-    return userMessage.replace(GeminiConvo.botID(), "'Note: Pretend your name is Eiai Nano'")
+    return userMessage.replace(GeminiConvo.botID(), "'Note: Please reply in under 2000 characters'")
 
-if __name__ == "__main__":
+def main():
     GeminiConvo.loadEnv()
     bot_start(os.getenv('discord_api'))

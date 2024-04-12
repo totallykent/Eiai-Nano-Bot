@@ -1,11 +1,18 @@
 import os
 import google.generativeai as gemini
+from google.generativeai.types import HarmCategory, HarmBlockThreshold
+
 
 from dotenv import load_dotenv
 
-def conversation(prompt):    
+def conversation(prompt):
     model = gemini.GenerativeModel('gemini-pro')
-    response = model.generate_content(prompt)
+    response = model.generate_content(
+        prompt,
+        safety_settings={
+            HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: HarmBlockThreshold.BLOCK_NONE 
+        }
+    )
     return response.text
 
 def loadEnv():
